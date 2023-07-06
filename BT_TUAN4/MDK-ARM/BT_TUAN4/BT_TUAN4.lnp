@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp.sp
+"bt_tuan4\startup_stm32f407xx.o"
+"bt_tuan4\main.o"
+"bt_tuan4\gpio.o"
+"bt_tuan4\stm32f4xx_it.o"
+"bt_tuan4\stm32f4xx_hal_msp.o"
+"bt_tuan4\stm32f4xx_hal_tim.o"
+"bt_tuan4\stm32f4xx_hal_tim_ex.o"
+"bt_tuan4\stm32f4xx_hal_rcc.o"
+"bt_tuan4\stm32f4xx_hal_rcc_ex.o"
+"bt_tuan4\stm32f4xx_hal_flash.o"
+"bt_tuan4\stm32f4xx_hal_flash_ex.o"
+"bt_tuan4\stm32f4xx_hal_flash_ramfunc.o"
+"bt_tuan4\stm32f4xx_hal_gpio.o"
+"bt_tuan4\stm32f4xx_hal_dma_ex.o"
+"bt_tuan4\stm32f4xx_hal_dma.o"
+"bt_tuan4\stm32f4xx_hal_pwr.o"
+"bt_tuan4\stm32f4xx_hal_pwr_ex.o"
+"bt_tuan4\stm32f4xx_hal_cortex.o"
+"bt_tuan4\stm32f4xx_hal.o"
+"bt_tuan4\stm32f4xx_hal_exti.o"
+"bt_tuan4\system_stm32f4xx.o"
+"bt_tuan4\retarget_io.o"
+--strict --scatter "BT_TUAN4\BT_TUAN4.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "BT_TUAN4.map" -o BT_TUAN4\BT_TUAN4.axf

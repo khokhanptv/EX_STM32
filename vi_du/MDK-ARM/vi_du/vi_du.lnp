@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp.sp
+"vi_du\startup_stm32f407xx.o"
+"vi_du\main.o"
+"vi_du\gpio.o"
+"vi_du\stm32f4xx_it.o"
+"vi_du\stm32f4xx_hal_msp.o"
+"vi_du\stm32f4xx_hal_tim.o"
+"vi_du\stm32f4xx_hal_tim_ex.o"
+"vi_du\stm32f4xx_hal_rcc.o"
+"vi_du\stm32f4xx_hal_rcc_ex.o"
+"vi_du\stm32f4xx_hal_flash.o"
+"vi_du\stm32f4xx_hal_flash_ex.o"
+"vi_du\stm32f4xx_hal_flash_ramfunc.o"
+"vi_du\stm32f4xx_hal_gpio.o"
+"vi_du\stm32f4xx_hal_dma_ex.o"
+"vi_du\stm32f4xx_hal_dma.o"
+"vi_du\stm32f4xx_hal_pwr.o"
+"vi_du\stm32f4xx_hal_pwr_ex.o"
+"vi_du\stm32f4xx_hal_cortex.o"
+"vi_du\stm32f4xx_hal.o"
+"vi_du\stm32f4xx_hal_exti.o"
+"vi_du\system_stm32f4xx.o"
+"vi_du\retarget_io.o"
+--strict --scatter "vi_du\vi_du.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "vi_du.map" -o vi_du\vi_du.axf

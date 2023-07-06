@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp.sp
+"control_led\startup_stm32f407xx.o"
+"control_led\main.o"
+"control_led\gpio.o"
+"control_led\stm32f4xx_it.o"
+"control_led\stm32f4xx_hal_msp.o"
+"control_led\stm32f4xx_hal_tim.o"
+"control_led\stm32f4xx_hal_tim_ex.o"
+"control_led\stm32f4xx_hal_rcc.o"
+"control_led\stm32f4xx_hal_rcc_ex.o"
+"control_led\stm32f4xx_hal_flash.o"
+"control_led\stm32f4xx_hal_flash_ex.o"
+"control_led\stm32f4xx_hal_flash_ramfunc.o"
+"control_led\stm32f4xx_hal_gpio.o"
+"control_led\stm32f4xx_hal_dma_ex.o"
+"control_led\stm32f4xx_hal_dma.o"
+"control_led\stm32f4xx_hal_pwr.o"
+"control_led\stm32f4xx_hal_pwr_ex.o"
+"control_led\stm32f4xx_hal_cortex.o"
+"control_led\stm32f4xx_hal.o"
+"control_led\stm32f4xx_hal_exti.o"
+"control_led\system_stm32f4xx.o"
+"control_led\retarget_io.o"
+--strict --scatter "CONTROL_LED\CONTROL_LED.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "CONTROL_LED.map" -o CONTROL_LED\CONTROL_LED.axf

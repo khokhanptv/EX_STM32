@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp.sp
+"hsi\startup_stm32f407xx.o"
+"hsi\main.o"
+"hsi\gpio.o"
+"hsi\stm32f4xx_it.o"
+"hsi\stm32f4xx_hal_msp.o"
+"hsi\stm32f4xx_hal_tim.o"
+"hsi\stm32f4xx_hal_tim_ex.o"
+"hsi\stm32f4xx_hal_rcc.o"
+"hsi\stm32f4xx_hal_rcc_ex.o"
+"hsi\stm32f4xx_hal_flash.o"
+"hsi\stm32f4xx_hal_flash_ex.o"
+"hsi\stm32f4xx_hal_flash_ramfunc.o"
+"hsi\stm32f4xx_hal_gpio.o"
+"hsi\stm32f4xx_hal_dma_ex.o"
+"hsi\stm32f4xx_hal_dma.o"
+"hsi\stm32f4xx_hal_pwr.o"
+"hsi\stm32f4xx_hal_pwr_ex.o"
+"hsi\stm32f4xx_hal_cortex.o"
+"hsi\stm32f4xx_hal.o"
+"hsi\stm32f4xx_hal_exti.o"
+"hsi\system_stm32f4xx.o"
+"hsi\retarget_io.o"
+--strict --scatter "HSI\HSI.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "HSI.map" -o HSI\HSI.axf

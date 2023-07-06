@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp.sp
+"led_togle\startup_stm32f407xx.o"
+"led_togle\main.o"
+"led_togle\gpio.o"
+"led_togle\stm32f4xx_it.o"
+"led_togle\stm32f4xx_hal_msp.o"
+"led_togle\stm32f4xx_hal_tim.o"
+"led_togle\stm32f4xx_hal_tim_ex.o"
+"led_togle\stm32f4xx_hal_rcc.o"
+"led_togle\stm32f4xx_hal_rcc_ex.o"
+"led_togle\stm32f4xx_hal_flash.o"
+"led_togle\stm32f4xx_hal_flash_ex.o"
+"led_togle\stm32f4xx_hal_flash_ramfunc.o"
+"led_togle\stm32f4xx_hal_gpio.o"
+"led_togle\stm32f4xx_hal_dma_ex.o"
+"led_togle\stm32f4xx_hal_dma.o"
+"led_togle\stm32f4xx_hal_pwr.o"
+"led_togle\stm32f4xx_hal_pwr_ex.o"
+"led_togle\stm32f4xx_hal_cortex.o"
+"led_togle\stm32f4xx_hal.o"
+"led_togle\stm32f4xx_hal_exti.o"
+"led_togle\system_stm32f4xx.o"
+"led_togle\retarget_io.o"
+--strict --scatter "led_togle\led_togle.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "led_togle.map" -o led_togle\led_togle.axf
