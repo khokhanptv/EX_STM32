@@ -17,8 +17,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "iwdg.h"
+#include "tim.h"
+#include "wwdg.h"
 #include "gpio.h"
- 
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -86,29 +88,44 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_IWDG_Init();
+  MX_TIM1_Init();
+  MX_WWDG_Init();
   /* USER CODE BEGIN 2 */
-		 
+		// HAL_TIM_PWM_Start (&htim1,TIM_CHANNEL_1);//khoi tao timer1
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+			//__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,50);	
+		//	int var =100;
   while (1)
   {
     /* USER CODE END WHILE */
-		
+
     /* USER CODE BEGIN 3 */
 	
 			st0 = HAL_GPIO_ReadPin(Key0_GPIO_Port,Key0_Pin);
 			st1 = HAL_GPIO_ReadPin(Key1_GPIO_Port,Key1_Pin);
+		printf("gia tri key0 la: %d \n", st0  );
+		
 //code nut nhan Key_0
 			if(st0==0)
 			{
+				
 				HAL_Delay(20);
 				if(st0==0)
 					{
+//								HAL_Delay(50);
+//								var=var+100;
+//								if (var >1000)
+//									{
+//										var=100;
+//									}
+//								__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,var);
 								HAL_GPIO_WritePin(Led_D2_GPIO_Port,Led_D2_Pin,GPIO_PIN_RESET);
 								HAL_GPIO_WritePin(Led_D3_GPIO_Port,Led_D3_Pin,GPIO_PIN_SET);
-								HAL_Delay(500); //F=1/T,F=2HZ >> T =500(ms)
+								HAL_Delay(500); // 
 								HAL_GPIO_WritePin(Led_D2_GPIO_Port,Led_D2_Pin,GPIO_PIN_SET);
 								HAL_GPIO_WritePin(Led_D3_GPIO_Port,Led_D3_Pin,GPIO_PIN_RESET);
 								HAL_Delay(500);					
@@ -116,17 +133,20 @@ int main(void)
 					
 			}
 			
-			else 		// chua hieu cho nay? khi ma khong nhan Key_0 ra thi 2 led deu tat
-				{
-					HAL_GPIO_WritePin(Led_D2_GPIO_Port,Led_D2_Pin,GPIO_PIN_SET);
-					HAL_GPIO_WritePin(Led_D2_GPIO_Port,Led_D2_Pin,GPIO_PIN_SET);
-				}
+		 
 //code nut nhan Key_1
 			if(st1==0)
 			{
 				HAL_Delay(20);
 				if(st1==0)
 					{
+//						HAL_Delay (20);
+//						var=1000-var;
+//						if(var==0)
+//								{
+//									var=1000;
+//								}
+//						__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,var);			
 						for(int i=0;i<=4;i++)
 							{
 								HAL_GPIO_WritePin(Led_D2_GPIO_Port,Led_D2_Pin,GPIO_PIN_RESET);
@@ -167,8 +187,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 4;
