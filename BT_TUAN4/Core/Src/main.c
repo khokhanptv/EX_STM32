@@ -13,8 +13,7 @@
   * in the root directory of this software component.
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
-  ******************************************************************************
-  */
+  **************************************************************************y7
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -33,7 +32,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-		int st0,st1;
 	
 /* USER CODE END PD */
 
@@ -45,7 +43,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+		int st0,st1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
