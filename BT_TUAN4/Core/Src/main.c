@@ -94,13 +94,13 @@ int main(void)
   MX_TIM1_Init();
   MX_WWDG_Init();
   /* USER CODE BEGIN 2 */
-		 HAL_TIM_PWM_Start (&htim1,TIM_CHANNEL_1);//khoi tao timer1
+		// HAL_TIM_PWM_Start (&htim1,TIM_CHANNEL_1);//khoi tao timer1
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-			__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,50);	
-			int var =100;
+			//__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,50);	
+		//	int var =100;
   while (1)
   {
     /* USER CODE END WHILE */
@@ -109,19 +109,22 @@ int main(void)
 	
 			st0 = HAL_GPIO_ReadPin(Key0_GPIO_Port,Key0_Pin);
 			st1 = HAL_GPIO_ReadPin(Key1_GPIO_Port,Key1_Pin);
+		printf("gia tri key0 la: %d \n", st0  );
+		
 //code nut nhan Key_0
 			if(st0==0)
 			{
+				
 				HAL_Delay(20);
 				if(st0==0)
 					{
-								HAL_Delay(50);
-								var=var+100;
-								if (var >1000)
-									{
-										var=100;
-									}
-								__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,var);
+//								HAL_Delay(50);
+//								var=var+100;
+//								if (var >1000)
+//									{
+//										var=100;
+//									}
+//								__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,var);
 								HAL_GPIO_WritePin(Led_D2_GPIO_Port,Led_D2_Pin,GPIO_PIN_RESET);
 								HAL_GPIO_WritePin(Led_D3_GPIO_Port,Led_D3_Pin,GPIO_PIN_SET);
 								HAL_Delay(500); // 
@@ -139,13 +142,13 @@ int main(void)
 				HAL_Delay(20);
 				if(st1==0)
 					{
-						HAL_Delay (20);
-						var=1000-var;
-						if(var==0)
-								{
-									var=1000;
-								}
-						__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,var);			
+//						HAL_Delay (20);
+//						var=1000-var;
+//						if(var==0)
+//								{
+//									var=1000;
+//								}
+//						__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,var);			
 						for(int i=0;i<=4;i++)
 							{
 								HAL_GPIO_WritePin(Led_D2_GPIO_Port,Led_D2_Pin,GPIO_PIN_RESET);
