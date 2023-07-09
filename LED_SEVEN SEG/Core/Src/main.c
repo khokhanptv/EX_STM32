@@ -54,6 +54,9 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+	
+	 
+		
 	void tat_led()
 	{	
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,0);
@@ -79,7 +82,7 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		void so_1()
+	void so_1()
 	{
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,0);
 			HAL_GPIO_WritePin(LED_B_GPIO_Port,LED_B_Pin,1);
@@ -91,7 +94,7 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		void so_2()
+	void so_2()
 	{
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,1);
 			HAL_GPIO_WritePin(LED_B_GPIO_Port,LED_B_Pin,1);
@@ -103,7 +106,7 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		void so_3()
+	void so_3()
 	{
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,1);
 			HAL_GPIO_WritePin(LED_B_GPIO_Port,LED_B_Pin,1);
@@ -115,7 +118,7 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		void so_4()
+	void so_4()
 	{
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,0);
 			HAL_GPIO_WritePin(LED_B_GPIO_Port,LED_B_Pin,1);
@@ -127,7 +130,7 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		void so_5()
+	void so_5()
 	{
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,1);
 			HAL_GPIO_WritePin(LED_B_GPIO_Port,LED_B_Pin,0);
@@ -139,7 +142,7 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		void so_6()
+	void so_6()
 	{
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,1);
 			HAL_GPIO_WritePin(LED_B_GPIO_Port,LED_B_Pin,0);
@@ -151,7 +154,7 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		void so_7()
+	void so_7()
 	{
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,1);
 			HAL_GPIO_WritePin(LED_B_GPIO_Port,LED_B_Pin,1);
@@ -163,7 +166,7 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		void so_8()
+	void so_8()
 	{
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,1);
 			HAL_GPIO_WritePin(LED_B_GPIO_Port,LED_B_Pin,1);
@@ -175,7 +178,7 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		void so_9()
+	void so_9()
 	{
 			HAL_GPIO_WritePin(LED_A_GPIO_Port,LED_A_Pin,1);
 			HAL_GPIO_WritePin(LED_B_GPIO_Port,LED_B_Pin,1);
@@ -187,7 +190,69 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-		
+	void hienthi_donvi(int so)
+	{
+		if (so ==0)
+		{
+			so_0();
+			
+
+		}
+			if (so ==1)
+		{
+			so_1();
+			
+
+		}
+			if (so ==2)
+		{
+			so_2();
+			
+
+		}
+			if (so==3)
+		{
+			so_3();
+			
+
+		}
+			if (so ==4)
+		{
+			so_4();
+			
+
+		}
+			if (so ==5)
+		{
+			so_5();
+			
+
+		}
+			if (so ==6)
+		{
+			so_6();
+			
+
+		}
+			if (so ==7)
+		{
+			so_7();
+			
+
+		}
+		if (so==8)
+		{
+			so_8();
+			
+
+		}
+		if (so ==9)
+		{
+			so_9();
+			
+
+		}
+	}
 /* USER CODE END 0 */
 
 /**
@@ -224,32 +289,65 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	
   while (1)
   {
     /* USER CODE END WHILE */
-			
+
     /* USER CODE BEGIN 3 */
-			so_0();
-			HAL_Delay(500);tat_led();
-			so_1();
-			HAL_Delay(500);tat_led();
-			so_2();
-			HAL_Delay(500);tat_led();
-			so_3();
-			HAL_Delay(500);tat_led();
-			so_4();
-			HAL_Delay(500);tat_led();
-			so_5();
-			HAL_Delay(500);tat_led();
-			so_6();
-			HAL_Delay(500);tat_led();
-			so_7();
-			HAL_Delay(500);tat_led();
-			so_8();
-			HAL_Delay(500);tat_led();
-			so_9();
-			HAL_Delay(500);tat_led();
+ 
+//			HAL_Delay(500);tat_led(); code kiem tra nut nhan
+//		if (HAL_GPIO_ReadPin(BT_0_GPIO_Port,BT_0_Pin) == 1)
+//		{
+//			HAL_Delay(20);
+//			if (HAL_GPIO_ReadPin(BT_0_GPIO_Port,BT_0_Pin) == 1)
+//			{
+//				dem= dem +1;
+//				if (dem ==10)
+//				{
+//					dem =0;
+//				}
+//			}			
+//		}
+//	
+		HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,1);
+		for(int i = 0; i<10; i++)
+		{
+			if(i==9)
+			{
+					HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,0);
+			}
+			else
+			{
+					HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,1);
+			}
+			hienthi_donvi(i);
+			HAL_Delay(300);
 		
+//			if (i ==9)  code cua minh
+//			{
+//				for (i=9;i>0 ;i--)
+//				{
+//					hienthi_donvi(i); 
+//					HAL_Delay(300);
+//				}
+//			}
+		}
+		
+		for(int i = 9; i >=0; i--) //code toi uu
+		{
+			if(i==0)
+			{
+					HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,0);
+			}
+			else
+			{
+					HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,1);
+			}
+			hienthi_donvi(i);
+			HAL_Delay(300);
+
+		}
   }
   /* USER CODE END 3 */
 }
