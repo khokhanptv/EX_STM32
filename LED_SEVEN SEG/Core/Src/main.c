@@ -25,7 +25,7 @@
 
 /* USER CODE END Includes */
 
-/* Private typedef -----------------------------------------------------------*/
+/* Private 	 -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -190,63 +190,63 @@ void SystemClock_Config(void);
 			HAL_GPIO_WritePin(LED_DP_GPIO_Port,LED_DP_Pin,0);
 		
 	}
-	void hienthi_donvi(int so)
+	void hienthi_donvi(int i)
 	{
-		if (so ==0)
+		if (i ==0)
 		{
 			so_0();
 			
 
 		}
-			if (so ==1)
+			if (i ==1)
 		{
 			so_1();
 			
 
 		}
-			if (so ==2)
+			if (i ==2)
 		{
 			so_2();
 			
 
 		}
-			if (so==3)
+			if (i==3)
 		{
 			so_3();
 			
 
 		}
-			if (so ==4)
+			if (i ==4)
 		{
 			so_4();
 			
 
 		}
-			if (so ==5)
+			if (i ==5)
 		{
 			so_5();
 			
 
 		}
-			if (so ==6)
+			if (i ==6)
 		{
 			so_6();
 			
 
 		}
-			if (so ==7)
+			if (i ==7)
 		{
 			so_7();
 			
 
 		}
-		if (so==8)
+		if (i==8)
 		{
 			so_8();
 			
 
 		}
-		if (so ==9)
+		if (i ==9)
 		{
 			so_9();
 			
@@ -311,9 +311,9 @@ int main(void)
 //		}
 //	
 		HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,1);
-		for(int i = 0; i<10; i++)
+		for(int m = 0; m<10; m++)
 		{
-			if(i==9)
+			if(m==9)
 			{
 					HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,0);
 			}
@@ -321,7 +321,7 @@ int main(void)
 			{
 					HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,1);
 			}
-			hienthi_donvi(i);
+			hienthi_donvi(m);
 			HAL_Delay(300);
 		
 //			if (i ==9)  code cua minh
@@ -334,9 +334,9 @@ int main(void)
 //			}
 		}
 		
-		for(int i = 9; i >=0; i--) //code toi uu
+		for(int m = 9; m >=0; m--) //code toi uu
 		{
-			if(i==0)
+			if(m==0)
 			{
 					HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,0);
 			}
@@ -344,7 +344,7 @@ int main(void)
 			{
 					HAL_GPIO_WritePin(Coi_1_GPIO_Port,Coi_1_Pin,1);
 			}
-			hienthi_donvi(i);
+			hienthi_donvi(m);
 			HAL_Delay(300);
 
 		}
