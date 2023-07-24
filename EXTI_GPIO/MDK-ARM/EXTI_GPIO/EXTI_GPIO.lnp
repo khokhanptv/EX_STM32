@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp.sp
+"exti_gpio\startup_stm32f407xx.o"
+"exti_gpio\main.o"
+"exti_gpio\gpio.o"
+"exti_gpio\stm32f4xx_it.o"
+"exti_gpio\stm32f4xx_hal_msp.o"
+"exti_gpio\stm32f4xx_hal_tim.o"
+"exti_gpio\stm32f4xx_hal_tim_ex.o"
+"exti_gpio\stm32f4xx_hal_rcc.o"
+"exti_gpio\stm32f4xx_hal_rcc_ex.o"
+"exti_gpio\stm32f4xx_hal_flash.o"
+"exti_gpio\stm32f4xx_hal_flash_ex.o"
+"exti_gpio\stm32f4xx_hal_flash_ramfunc.o"
+"exti_gpio\stm32f4xx_hal_gpio.o"
+"exti_gpio\stm32f4xx_hal_dma_ex.o"
+"exti_gpio\stm32f4xx_hal_dma.o"
+"exti_gpio\stm32f4xx_hal_pwr.o"
+"exti_gpio\stm32f4xx_hal_pwr_ex.o"
+"exti_gpio\stm32f4xx_hal_cortex.o"
+"exti_gpio\stm32f4xx_hal.o"
+"exti_gpio\stm32f4xx_hal_exti.o"
+"exti_gpio\system_stm32f4xx.o"
+"exti_gpio\retarget_io.o"
+--strict --scatter "EXTI_GPIO\EXTI_GPIO.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "EXTI_GPIO.map" -o EXTI_GPIO\EXTI_GPIO.axf
