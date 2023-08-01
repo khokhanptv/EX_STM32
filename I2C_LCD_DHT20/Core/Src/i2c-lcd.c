@@ -79,7 +79,7 @@ void lcd_init (void)
 
   // dislay initialisation
 	lcd_send_cmd (0x28); // Function set --> DL=0 (4 bit mode), N = 1 (2 line display) F = 0 (5x8 characters)
-	HAL_Delay(1);
+	HAL_Delay(1);	
 	lcd_send_cmd (0x08); //Display on/off control --> D=0,C=0, B=0  ---> display off
 	HAL_Delay(1);
 	lcd_send_cmd (0x01);  // clear display
@@ -93,4 +93,48 @@ void lcd_init (void)
 void lcd_send_string (char *str)
 {
 	while (*str) lcd_send_data (*str++);
+}
+ 
+ 
+void lcd_sent_number_xxxx(int number)
+{
+	int thousands = number / 1000;
+	int hundreds = (number % 1000) / 100;
+	int tens = (number % 100) / 10;
+	int units = number % 10;
+	lcd_send_data(thousands + '0');
+	lcd_send_data(hundreds + '0');
+	lcd_send_data(tens + '0');
+	lcd_send_data(units + '0');
+}
+
+void lcd_sent_number_xxxx_no_zero(int number)
+{
+	int thousands = number / 1000;
+	int hundreds = (number % 1000) / 100;
+	int tens = (number % 100) / 10;
+	int units = number % 10;
+	char so_xxxx[4];
+
+	so_xxxx[0] = thousands + '0';
+	so_xxxx[1] = hundreds + '0';
+	so_xxxx[2] = tens + '0';
+	so_xxxx[3] = units + '0';
+	if (thousands == 0)
+	{
+		so_xxxx[0] = 32;
+		if (hundreds == 0)
+		{
+			so_xxxx[1] = 32;
+			if (tens == 0)
+			{
+				so_xxxx[2] = 32;
+			}	
+		}
+	}
+	
+	lcd_send_data(so_xxxx[0]);
+	lcd_send_data(so_xxxx[1]);
+	lcd_send_data(so_xxxx[2]);
+	lcd_send_data(so_xxxx[3]);
 }

@@ -49,9 +49,17 @@
 uint32_t value_adc1 = 0;// khoi tao tung bien , gan vao chanel
 uint32_t value_adc2 = 0;
 uint32_t value_adc3 = 0;
-float Vol,Temp =0 ;	
+int Vol,Temp =0 ;	
 int dem=0;
 int rank1=0;
+int number;
+int number1;
+int thousands;
+int hundreds ;
+int tens ;
+int units;
+char so_xxxx[4];
+ 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -109,48 +117,136 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		unsigned short data_adc[16]; // regular 16 yc chuyen doi
-		HAL_ADC_Start(&hadc1);// DUNG regular
+		HAL_ADC_Start(&hadc1);// DUNG regular, DA SET UP 3 KENH , CHANEL 0>3
 		HAL_ADC_PollForConversion(&hadc1,HAL_MAX_DELAY);
-		for(int i =0; i< 4;i++)
+		for(int i =0; i< 2;i++)
 		{
 			dem ++;
 			value_adc1 = HAL_ADC_GetValue(&hadc1);
 			data_adc[i] = value_adc1;
-			HAL_Delay(50);
+			HAL_Delay(100);
 		}
-		HAL_ADC_Stop(&hadc1);
-		HAL_ADCEx_InjectedStart(&hadc1);// DANG DUNG Injected
-		printf("Gia tri dem:  %d \n",dem);
+		HAL_ADC_Stop(&hadc1);// ket thuc regular
 		
-//		printf("Gia tri vol:  %d \n",data_adc[0]);
-		 
-		HAL_Delay(50); 
-		if (dem == 100)
-		{
-			rank1 = HAL_ADCEx_InjectedGetValue(&hadc1,ADC_INJECTED_RANK_1); 
-			printf("Gia tri VOL: %d \n",rank1); 
-		}
-		printf("Gia tri nhiet do: %d \n",data_adc[1]);
-		printf("Gia tri VREFINT: %d \n",data_adc[2]);
+		HAL_ADCEx_InjectedStart(&hadc1);// DANG DUNG Injected, 1 KENH CHANEL 0
+		rank1 = HAL_ADCEx_InjectedGetValue(&hadc1,ADC_INJECTED_RANK_1); 
+		
+		// phia duoi la in gia tri
+		printf("Gia tri dem:  %d \n",dem);// dem
+		printf("Gia tri VOL: %d \n",rank1); 	// gia tri rank1 cua injected
+		printf("Gia tri vol:  %d \n",data_adc[0]); // gia tri chanel 0 cua regular
+		printf("Gia tri nhiet do: %d \n",data_adc[1]);// gia tri chanel 1cua regular
+		printf("Gia tri VREFINT: %d \n",data_adc[2]);// gia tri chanel 2cua regular
 		printf ("--------------\n");
 		HAL_Delay(100);
 		 
-		Temp = (float)data_adc[1];
-		Vol = (float) rank1;
-		// HIEN THI BIEN TRO LEN LCD
+		// HIEN THI  LEN LCD
+		Temp = (int)data_adc[1];
+		Vol = (int) rank1;
+		
+	// HIEN THI binh thuong  bien tro LEN LCD
 		char buffer[20];
-		sprintf (buffer, "DIEN AP: %0.1f ", Vol);
+		number = Vol;
 		lcd_put_cur(0,0);
+		sprintf (buffer,"D:%d ", Vol); 
 		lcd_send_string (buffer);
-		 // HIEN THI NHIET DO LEN LCD
-		sprintf (buffer, "Temp: %0.1f  C", Temp);
+		HAL_Delay(500);
+		
+		//4 so ,co so 0, bien tro LEN LCD
+		lcd_put_cur(0,7);
+		sprintf (buffer,"DA:%d ", number);
+		thousands = number / 1000;
+		hundreds = (number % 1000) / 100;
+		tens = (number % 100) / 10;
+		units = number % 10;
+		lcd_send_data(thousands + '0');
+		lcd_send_data(hundreds + '0');
+		lcd_send_data(tens + '0');
+		lcd_send_data(units + '0');
+		HAL_Delay(500);
+		
+		//xoa so 0, bien tro LEN LCD
+		lcd_put_cur(0,12);
+		sprintf (buffer,"DA:%d ", number);
+		thousands = number / 1000;
+		hundreds = (number % 1000) / 100;
+	  tens = (number % 100) / 10;
+	  units = number % 10;
+		so_xxxx[0] = thousands + '0';
+		so_xxxx[1] = hundreds + '0';
+		so_xxxx[2] = tens + '0';
+		so_xxxx[3] = units + '0';
+		if (thousands == 0)
+		{
+			so_xxxx[0] = 32;
+			if (hundreds == 0)
+			{
+				so_xxxx[1] = 32;
+				if (tens == 0)
+				{
+					so_xxxx[2] = 32;
+				}	
+			}
+		}
+		lcd_send_data(so_xxxx[0]);
+		lcd_send_data(so_xxxx[1]);
+		lcd_send_data(so_xxxx[2]);
+		lcd_send_data(so_xxxx[3]);
+		HAL_Delay(500);
+		
+		
+		
+		
+		 // HIEN THI BINH THUONG NHIET DO LEN LCD
+		number1 = Temp;
+		sprintf (buffer,"T:%d", Temp);
 		lcd_put_cur(1,0);
 		lcd_send_string (buffer);
-		HAL_Delay(1000);
-  }
-	 
-
-
+		HAL_Delay(500);
+		
+		//4 so ,co so 0, CUA NHIET DO LEN LCD
+		lcd_put_cur(1,6);
+		sprintf (buffer,"DA:%d ", number1);
+		thousands = number1 / 1000;
+		hundreds = (number1 % 1000) / 100;
+		tens = (number1 % 100) / 10;
+		units = number1 % 10;
+		lcd_send_data(thousands + '0');
+		lcd_send_data(hundreds + '0');
+		lcd_send_data(tens + '0');
+		lcd_send_data(units + '0');
+		HAL_Delay(500);
+		
+		//4 so ,XOA SO 0 CUA NHIET DO LEN LCD
+		lcd_put_cur(1,10);
+		sprintf (buffer,"DA:%d ", number);
+		thousands = number1 / 1000;
+		hundreds = (number1 % 1000) / 100;
+	  tens = (number1 % 100) / 10;
+	  units = number1 % 10;
+		so_xxxx[0] = thousands + '0';
+		so_xxxx[1] = hundreds + '0';
+		so_xxxx[2] = tens + '0';
+		so_xxxx[3] = units + '0';
+		if (thousands == 0)
+		{
+			so_xxxx[0] = 32;
+			if (hundreds == 0)
+			{
+				so_xxxx[1] = 32;
+				if (tens == 0)
+				{
+					so_xxxx[2] = 32;
+				}	
+			}
+		}
+		lcd_send_data(so_xxxx[0]);
+		lcd_send_data(so_xxxx[1]);
+		lcd_send_data(so_xxxx[2]);
+		lcd_send_data(so_xxxx[3]);
+		HAL_Delay(500);
+	
+  }	 
   
   /* USER CODE END 3 */
 }

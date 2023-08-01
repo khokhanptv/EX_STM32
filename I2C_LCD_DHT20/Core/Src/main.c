@@ -237,10 +237,10 @@ int main(void)
 //			HAL_Delay(100);
 //	}
 
-//		char string_lcd[20];
-//		int count =0;
-//		lcd_clear ();
-//		int status_button =0;
+		char string_lcd[20];
+		int count =0;
+		lcd_clear ();
+		int status_button =0;
 		HAL_Delay(1000);
 		lcd_init ();
   /* USER CODE END 2 */
@@ -252,57 +252,59 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//			lcd_put_cur(0, 0); // VI TRI HANG0 COT 0
-//			lcd_send_string ("ThaiTn");// gui ky tu
-//			HAL_Delay(10);
-//			lcd_put_cur(1, 3);        // code xoa hang chuc
-//			lcd_send_string ("  ---");// code xoa hang chuc
-//			lcd_put_cur(1, 0);
-//			sprintf (string_lcd, "So: %d",count); // 
-//			lcd_send_string (string_lcd); //  gui bien
-//			HAL_Delay(100);
-//			if (HAL_GPIO_ReadPin(Key_0_GPIO_Port,Key_0_Pin) ==0)	
-//			{	
-//				HAL_Delay(100);
-//				if(HAL_GPIO_ReadPin(Key_0_GPIO_Port,Key_0_Pin) ==0)
-//				{
-//					count = count +1 ;
-//					if(count ==30)
-//					{
-//						count =0;
-//					}
-//					
-//				}
-//				
-//			}
-//				
-//			if (HAL_GPIO_ReadPin(Key_1_GPIO_Port,Key_1_Pin) ==0)	
-//			{	
-//				HAL_Delay(100);
-//				if(HAL_GPIO_ReadPin(Key_1_GPIO_Port,Key_1_Pin) ==0)
-//				{
-//					count = count -1 ;
-//					if (count <0)
-//					{
-//						count =0;
-// 		 
-//					}
-//				}
-//			}
+			char buffer[20];	
+		
+			lcd_put_cur(0,0); // VI TRI HANG0 COT 0
+			sprintf(buffer, "SO: %d ", count);
+			lcd_send_string(buffer);
+			 
+			lcd_put_cur(0, 10);
+			lcd_sent_number_xxxx(count);
+		
+		
+			HAL_Delay(100);
+			if (HAL_GPIO_ReadPin(Key_0_GPIO_Port,Key_0_Pin) ==0)	
+			{	
+				HAL_Delay(100);
+				if(HAL_GPIO_ReadPin(Key_0_GPIO_Port,Key_0_Pin) ==0)
+				{
+					count = count +1 ;
+					if(count ==20)
+					{
+						count =98;
+					}
+					
+				}
+				
+			}
+				
+			if (HAL_GPIO_ReadPin(Key_1_GPIO_Port,Key_1_Pin) ==0)	
+			{	
+				HAL_Delay(100);
+				if(HAL_GPIO_ReadPin(Key_1_GPIO_Port,Key_1_Pin) ==0)
+				{
+					count = count -1 ;
+					if (count <0)
+					{
+						count =0;
+ 		 
+					}
+				}
+			}
  
 		 //CODE NHIET DO , DO AM
 	 
-		trigger_measurement_data_dht20();
-		char buffer[20];
-		sprintf (buffer, "Humi: %0.1f%%", RH);
-		lcd_put_cur(0,0);
-		lcd_send_string (buffer);
-		 
-		sprintf (buffer, "Temp: %0.1f  C", Temp);
-		lcd_put_cur(1,0);
-		lcd_send_string (buffer);
-		HAL_Delay(1000);
-		
+//		trigger_measurement_data_dht20();
+//		char buffer[20];
+//		sprintf (buffer, "Humi: %0.1f%%", RH);
+//		lcd_put_cur(0,0);
+//		lcd_send_string (buffer);
+//		 
+//		sprintf (buffer, "Temp: %0.1f  C", Temp);
+//		lcd_put_cur(1,0);
+//		lcd_send_string (buffer);
+//		HAL_Delay(1000);
+//		
  
 	 
 		
