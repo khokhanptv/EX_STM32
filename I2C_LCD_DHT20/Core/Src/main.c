@@ -221,21 +221,21 @@ int main(void)
  
 	
 	// code scan tim dia chi I2C( thiet bi ket noi), ney khong biet dia chi do la bao nhieu
-//	int ret = 0;
-//	for(int i=1; i<128; i++)
-//	{
-//			ret = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
-//			if (ret != HAL_OK) /* No ACK Received At That Address */
-//			{
-//					printf("khong co tai dia chi 0x%X \n",i);
-//			}
-//			else if(ret == HAL_OK)
-//			{
-//					printf("dia chi 0x%X \n",i);
-//					//break;
-//			}
-//			HAL_Delay(100);
-//	}
+	int ret = 0;
+	for(int i=1; i<128; i++)
+	{
+			ret = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
+			if (ret != HAL_OK) /* No ACK Received At That Address */
+			{
+					printf("khong co tai dia chi 0x%X \n",i);
+			}
+			else if(ret == HAL_OK)
+			{
+					printf("dia chi 0x%X \n",i);
+					//break;
+			}
+			HAL_Delay(100);
+	}
 
 		char string_lcd[20];
 		int count =0;
@@ -259,7 +259,7 @@ int main(void)
 			lcd_send_string(buffer);
 			 
 			lcd_put_cur(0, 10);
-			lcd_sent_number_xxxx(count);
+		 
 		
 		
 			HAL_Delay(100);

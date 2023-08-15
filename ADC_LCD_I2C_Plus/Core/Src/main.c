@@ -172,13 +172,13 @@ int main(void)
 		hundreds = (number % 1000) / 100;
 	  tens = (number % 100) / 10;
 	  units = number % 10;
-		so_xxxx[0] = thousands + '0';
+		so_xxxx[0] = thousands + '0';//CONG so '0' vo , de chuyen so nguyen thanh KY ACSII
 		so_xxxx[1] = hundreds + '0';
 		so_xxxx[2] = tens + '0';
 		so_xxxx[3] = units + '0';
 		if (thousands == 0)
 		{
-			so_xxxx[0] = 32;
+			so_xxxx[0] = 32;// so 32 theo ma ACSII la khoang trang , neu ngan =0 thi chen khoang trang vo
 			if (hundreds == 0)
 			{
 				so_xxxx[1] = 32;
@@ -203,7 +203,7 @@ int main(void)
 		lcd_put_cur(1,0);
 		lcd_send_string (buffer);
 		HAL_Delay(500);
-		
+		       
 		//4 so ,co so 0, CUA NHIET DO LEN LCD
 		lcd_put_cur(1,6);
 		sprintf (buffer,"DA:%d ", number1);
@@ -211,7 +211,7 @@ int main(void)
 		hundreds = (number1 % 1000) / 100;
 		tens = (number1 % 100) / 10;
 		units = number1 % 10;
-		lcd_send_data(thousands + '0');
+		lcd_send_data(thousands + '0');// de chuyen kieu sp nguyen >> ma ACSII
 		lcd_send_data(hundreds + '0');
 		lcd_send_data(tens + '0');
 		lcd_send_data(units + '0');
