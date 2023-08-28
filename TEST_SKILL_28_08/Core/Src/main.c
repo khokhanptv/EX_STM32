@@ -209,10 +209,8 @@ int main(void)
 	if(key=='#')
 	{
 
-//		write_eeprom(2,so[0]);
-//		write_eeprom(1,so[1]);
-//		write_eeprom(0,so[2]);
-//		i=0;		
+
+			i=0;		
 //	int read =100*read_eeprom(2) +10*read_eeprom(1) + read_eeprom(0);
 //	printf("mk nguoi dung 1 la %d\r\n",read);
 	}
