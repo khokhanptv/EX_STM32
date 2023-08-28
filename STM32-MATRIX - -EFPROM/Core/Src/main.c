@@ -26,7 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "i2c-lcd.h"
-#include <stdio.h>
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -223,7 +223,7 @@ int main(void)
   while (1)
   {
 		
-    /* USER CODE END WHILE */
+    /* USER CODE END WHILE */	
 
     /* USER CODE BEGIN 3 */
 			

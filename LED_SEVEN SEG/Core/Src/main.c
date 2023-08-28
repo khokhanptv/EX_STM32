@@ -25,7 +25,7 @@
 
 /* USER CODE END Includes */
 
-/* Private 	 -----------------------------------------------------------*/
+/* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */

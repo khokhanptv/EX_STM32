@@ -1,0 +1,26 @@
+--cpu=Cortex-M4.fp.sp
+"blink_led1\startup_stm32f407xx.o"
+"blink_led1\main.o"
+"blink_led1\gpio.o"
+"blink_led1\stm32f4xx_it.o"
+"blink_led1\stm32f4xx_hal_msp.o"
+"blink_led1\stm32f4xx_hal_tim.o"
+"blink_led1\stm32f4xx_hal_tim_ex.o"
+"blink_led1\stm32f4xx_hal_rcc.o"
+"blink_led1\stm32f4xx_hal_rcc_ex.o"
+"blink_led1\stm32f4xx_hal_flash.o"
+"blink_led1\stm32f4xx_hal_flash_ex.o"
+"blink_led1\stm32f4xx_hal_flash_ramfunc.o"
+"blink_led1\stm32f4xx_hal_gpio.o"
+"blink_led1\stm32f4xx_hal_dma_ex.o"
+"blink_led1\stm32f4xx_hal_dma.o"
+"blink_led1\stm32f4xx_hal_pwr.o"
+"blink_led1\stm32f4xx_hal_pwr_ex.o"
+"blink_led1\stm32f4xx_hal_cortex.o"
+"blink_led1\stm32f4xx_hal.o"
+"blink_led1\stm32f4xx_hal_exti.o"
+"blink_led1\system_stm32f4xx.o"
+--strict --scatter "BLINK_LED1\BLINK_LED1.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "BLINK_LED1.map" -o BLINK_LED1\BLINK_LED1.axf
