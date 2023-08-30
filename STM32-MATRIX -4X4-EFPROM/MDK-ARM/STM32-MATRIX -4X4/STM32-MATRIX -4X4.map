@@ -3097,7 +3097,7 @@ Image component sizes
        216          0          0          0          0       2240   gpio.o
        352          0          0          0          0       7197   i2c-lcd.o
        346          0          0          0        168       5484   i2c.o
-      1206         60         52          0         54      10473   main.o
+      1206         60         52          0         54      10472   main.o
       1050          0         23          0          0       5924   retarget_io.o
         64         26        392          0       1536        872   startup_stm32f407xx.o
        204          0          0          8          4       7318   stm32f4xx_hal.o
@@ -3114,7 +3114,7 @@ Image component sizes
        166          0          0          0         68       5032   usart.o
 
     ----------------------------------------------------------------------
-     11856         86        526         12       1908     185847   Object Totals
+     11856         86        526         12       1908     185846   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         70          0          3          0          6          0   (incl. Padding)
 
@@ -3207,8 +3207,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     15286        304        566         24       2256     187339   Grand Totals
-     15286        304        566         24       2256     187339   ELF Image Totals
+     15286        304        566         24       2256     187338   Grand Totals
+     15286        304        566         24       2256     187338   ELF Image Totals
      15286        304        566         24          0          0   ROM Totals
 
 ==============================================================================

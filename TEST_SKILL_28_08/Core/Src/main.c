@@ -24,7 +24,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
+#include "stdio.h"
+#include "i2c-lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -92,7 +93,7 @@ char buffer[20];
 	int	matrix_row ;  //debug printf LCD
 	int matrix_col;
 	char key;
-	char buffer[20];
+	
 	int so[4];
 	
 
