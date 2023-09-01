@@ -100,11 +100,16 @@ char buffer[20];
 	uint32_t value_adc2 = 0;
 	uint32_t value_adc3 = 0;
 	 	
-	int so[4]; 
+	int so[6];
 	char key;
 	int i=0;
 	char buffer[20];
 	int read;
+	int maytinh;
+	int status=0;
+	int cal=0;
+	
+	char test;
 	 
 	int	matrix_row ;  //debug printf LCD
 	int matrix_col;
@@ -246,10 +251,121 @@ void display_key(void)
 
 	 
 }
+///////////////////////////CODE MODE 1
+char Mode_1()
+{
+  int k=0;
+	int n=3;
+	lcd_put_cur(0,0);
+	lcd_send_string("MAY TINH");
+
+	while (k<3)
+	{
+		key = scan_key();
+		lcd_put_cur (1,k);
+		if(('0'<=key)&&(key<='9'))
+		{
+		  so[k]=key-48;			
+			printf("so thu %d la %d\r\n",k,so[k]);
+			lcd_send_data(key);			
+			k++;			
+			if(k==2)
+			{
+				k=0;
+			}
+		
+		}
+		if(key=='A')
+		{
+		 lcd_put_cur(1,2);
+		 lcd_send_string("+");	
+		 cal=1;
+		 break;
+		}	
+		
+		if(key=='B')
+		{
+		 lcd_put_cur(1,2);
+		 lcd_send_string("-");	
+		 cal=2;
+		 break;
+		}
+		
+		if(key=='C')
+		{
+		 lcd_put_cur(1,2);
+		 lcd_send_string("x");	
+		 cal=3;
+		 break;
+		}	
+		
+  }
+		
+	while (n<5)
+	{
+		key = scan_key();
+	
+		lcd_put_cur (1,n);
+		if(('0'<=key)&&(key<='9'))
+		{
+		  so[n]=key-48;
+			printf("so thu %d la %d\r\n",n,so[n]);
+			lcd_send_data(key);			
+			n++;
+				if(n==5)
+				{
+					n=3;
+				}				
+			
+		}
+		if(key=='#')
+		{
+			write_eeprom(0,so[0]);
+			write_eeprom(1,so[1]);
+			write_eeprom(3,so[3]);
+			write_eeprom(4,so[4]);
+			
+			lcd_put_cur (1,5);
+			lcd_send_string("=");
+			HAL_Delay(100);
+			if(cal==1)
+			{
+				maytinh=10*read_eeprom(0) +read_eeprom(1) + 10*read_eeprom(3) +read_eeprom(4);
+			}
+			
+			if(cal==2)
+			{
+				maytinh=(10*read_eeprom(0) +read_eeprom(1))-(10*read_eeprom(3) +read_eeprom(4));
+			}
+			if(cal==3)
+			{
+				maytinh=(10*read_eeprom(0) +read_eeprom(1))*(10*read_eeprom(3) +read_eeprom(4));
+			}
+			printf("maytinh %d\r\n",maytinh);// EP KIEU DU LIEU TU INT >>CHAR
+			lcd_put_cur (1,6);
+			sprintf (buffer,"%d ", maytinh); 
+			lcd_send_string (buffer);
+			HAL_Delay(3000);
+			
+			break;
+			 
+		}
+			
+		
+	}
+
+	return maytinh;
+ 
+}
+
 ///////////////////////////CODE MODE 2
+
 char Mode_2()
 {
 	int k=0;
+	lcd_put_cur(0,0);
+	lcd_send_string("nhap 4 so");
+	printf("hang 0 : nhap 4 so\r\n");	
 	while (k<4)
 	{		
 	key = scan_key();
@@ -259,27 +375,45 @@ char Mode_2()
 		  so[k]=key-48;			
 			printf("so thu %d la %d\r\n",k,so[k]);			 
 			lcd_send_data(key);
-			k++;			
+			k++;	
+			if(k==4)
+				{
+					k=0;
+				}
 	}
 	
 	if(key=='#')
 	{
-		write_eeprom(0,so[0]);
-		write_eeprom(1,so[1]);
-		write_eeprom(2,so[2]);
-		write_eeprom(3,so[3]);
+		write_eeprom(10,so[0]);
+		write_eeprom(11,so[1]);
+		write_eeprom(12,so[2]);
+		write_eeprom(13,so[3]);
 		k=0;		
-		read =1000*read_eeprom(0) +100*read_eeprom(1) + 10*read_eeprom(2)+read_eeprom(3);	 
+		read =1000*read_eeprom(10) +100*read_eeprom(11) + 10*read_eeprom(12)+read_eeprom(13);	 
 		printf("so da luu la: %d\r\n",read);
 		lcd_init();
-		HAL_Delay(500);
+
 		lcd_put_cur(0,0);
 		lcd_send_string("DA LUU EEPROM");
-		HAL_Delay(500);
+
 	}
 	if(key=='*')
 	{
-		display_4led(read);		
+		while(1)
+		{
+			key = scan_key();
+			if(key=='A')
+				{
+					display_4led(0000);	
+					lcd_init();
+					lcd_put_cur(0,0);
+					lcd_send_string("NHAP LAI");
+					break;
+				}
+		display_4led(read);	
+
+		}		
+			
 	}
 	 
 	}	 
@@ -337,13 +471,36 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	
+
+		key = scan_key();
+		lcd_put_cur(0,0);		
+  	lcd_send_string("CT1:MAYTINH");
+		printf("CT1:MAYTINH\r\n");
+		lcd_put_cur(1,0);
+		lcd_send_string("CT2:4 LED");
 		
-		
-		lcd_put_cur(0,0);
-		lcd_send_string("NHAP 4SO PLZ");
-		HAL_Delay(500);		
+		printf("CT2:4LED\r\n");
+	
+		if (key == '1')
+		{	
+		status=1;
+		}
+		if (status==1)
+		{	
+		lcd_init();	
+		Mode_1();
+		}
+		if (key == '2')
+		{
+		status=2;		
+		}
+		if (status==2)
+		{	
+		lcd_init();	
 		Mode_2();
-		HAL_Delay(500);
+		}
+	
 		
   }
   /* USER CODE END 3 */
