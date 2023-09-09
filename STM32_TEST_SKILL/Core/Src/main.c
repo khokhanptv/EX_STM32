@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "adc.h"
 #include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
@@ -85,13 +84,60 @@ void reset_eeprom()
 
 /* USER CODE BEGIN PV */
 
+
+
+
+typedef struct
+{
+	uint8_t status;
+	uint8_t left;//khai bao nut bam 
+	uint8_t right;//khai bao nut bam 
+	 
+	
+	enum 
+	{
+		
+		Mode_maytinh = 0,
+		Mode_4led,
+	};
+	
+} Global  ;
+Global Global_NT;
+
+typedef struct 
+{
+	int string_num[100];
+	int num_1;
+	int num_2;
+	int vitri_pheptinh;
+	int ketqua;
+	int trangthai;
+	
+	
+} Mode1;
+
+Mode1 Maytinh;
+ 
+
+typedef struct 
+{
+	//int number[4];
+	//int num_2[2];
+	
+} Mode2;
+
+ 
+
+
+
+
 char buffer[20];
 // su dung uart debug
-	int fputc(int ch, FILE * f) 
-	{		
-		HAL_UART_Transmit( & huart2, (uint8_t * ) & ch, 1, HAL_MAX_DELAY);
-		return ch;
-	}
+int fputc(int ch, FILE * f) 
+{		
+	HAL_UART_Transmit( & huart2, (uint8_t * ) & ch, 1, HAL_MAX_DELAY);
+	return ch;
+}
 
 
 
@@ -102,12 +148,13 @@ char buffer[20];
 	 	
 	int so[6];
 	char key;
-	int i=0;
+	
 	char buffer[20];
 	int read;
 	int maytinh;
 	int status=0;
 	int cal=0;
+int a=0;
 	
 	char test;
 	 
@@ -239,6 +286,176 @@ char scan_key()
 }
 
 
+int scan_mode(void)
+{
+	if (HAL_GPIO_ReadPin(Mode_GPIO_Port, Mode_Pin))
+	{
+		 
+		HAL_Delay(20);
+		if (HAL_GPIO_ReadPin(Mode_GPIO_Port, Mode_Pin))
+		{
+			// cho nay de chuyen mode, =0 thi mode nay, 1 mode khac
+			Global_NT.status = ~Global_NT.status&0x01;
+			printf("Global_NT.status %d \r\n",Global_NT.status);
+			while (HAL_GPIO_ReadPin(Mode_GPIO_Port, Mode_Pin) == 1)
+			{ 
+			}
+		}
+	}
+	return Global_NT.status;
+}
+int scan_left(void)
+{
+	if ((HAL_GPIO_ReadPin(LEFT_GPIO_Port, LEFT_Pin)==0)&&(a==0))
+	{
+		 
+		HAL_Delay(20);
+		if (HAL_GPIO_ReadPin(LEFT_GPIO_Port, LEFT_Pin)==0)
+		{
+			
+			printf("gia tri truoc la %d\r\n",read_eeprom(0) );
+			a=~a;
+			while (HAL_GPIO_ReadPin(LEFT_GPIO_Port, LEFT_Pin) == 0)
+			{ 
+			}
+		}
+	}
+	return Global_NT.left;
+}
+
+
+int scan_right(void)
+{
+	if (HAL_GPIO_ReadPin(RIGHT_GPIO_Port, RIGHT_Pin)==0)
+	{
+		 
+		HAL_Delay(20);
+		if (HAL_GPIO_ReadPin(RIGHT_GPIO_Port, RIGHT_Pin)==0)
+		{
+			 
+			printf("gia tri hien tai la  %d\r\n",Maytinh.ketqua );
+			while (HAL_GPIO_ReadPin(RIGHT_GPIO_Port, RIGHT_Pin) == 0)
+			{ 
+				
+			}
+		}
+	}
+	return Global_NT.right;
+}
+
+
+int fn_getNum(int array[5],int array_max)
+{
+	for(int i =0;i<5;i++)
+	{
+		printf("array[%d] %d \r\n", i, array[i]);
+		
+	}
+	
+		
+	return 1;
+}
+
+
+void fn_Mode_maytinh(void)
+{
+	while(Global_NT.status == Mode_maytinh)
+	{
+		scan_mode();
+		scan_left();
+		scan_right();
+		 
+		key = scan_key();
+		static int string_max = 0;
+		lcd_put_cur (1, string_max);
+
+		if((key == '#') && (string_max > 2))
+		{
+			for(int i = 0; i < string_max; i++)
+			{
+				//printf("Maytinh.string_num[i] %d\r\n", Maytinh.string_num[i]);
+				if (( Maytinh.string_num[i] < 0) || \
+					( Maytinh.string_num[i] > 9))
+				{
+					printf("VI TRI PHEP TINH LA %d\r\n", i);
+					if (Maytinh.string_num[i] == (65-48)) // dau +
+					{
+						printf("PHEP TINH HIEN TAI LA + \r\n");
+						Maytinh.trangthai=0;
+						
+					}
+					else if (Maytinh.string_num[i] == (66-48)) // dau -
+					{
+						printf("PHEP TINH HIEN TAI LA - \r\n");
+						Maytinh.trangthai=1;
+					}
+					else if (Maytinh.string_num[i] == (67-48)) // dau *
+					{
+						printf("PHEP TINH HIEN TAI LA * \r\n");
+						Maytinh.trangthai=2;
+					}
+					Maytinh.vitri_pheptinh = i;
+				}	 
+			}
+				
+// lay so 1
+			printf("Lay so 1:\r\n");
+			Maytinh.num_1 = 0;
+			for (int j = 0; j < Maytinh.vitri_pheptinh; j++) 
+			{
+				Maytinh.num_1 = Maytinh.num_1 * 10 + Maytinh.string_num[j];			
+			}
+			printf("Maytinh.num_1 1a: %d\r\n", Maytinh.num_1);
+			// lay so 2
+			printf("Lay so 2:\r\n");
+
+			Maytinh.num_2 = 0;
+			for (int j = Maytinh.vitri_pheptinh+1; j < string_max; j++) 
+			{
+				Maytinh.num_2 = Maytinh.num_2 * 10 + Maytinh.string_num[j];
+			}
+			
+			printf("Maytinh.num_2 1a: %d\r\n", Maytinh.num_2);
+			
+			if(Maytinh.trangthai==0)
+			{
+				Maytinh.ketqua=Maytinh.num_1+Maytinh.num_2;
+				write_eeprom(0,Maytinh.ketqua);
+				a=~a;
+				printf("ket qua phep cong la:%d\r\n",Maytinh.ketqua);
+		
+		 
+			}
+			
+				if(Maytinh.trangthai==1)
+			{
+				Maytinh.ketqua=Maytinh.num_1-Maytinh.num_2;
+				printf("ket qua phep tru la : %d\r\n",Maytinh.ketqua);
+			
+			}
+				if(Maytinh.trangthai==2)
+			{
+				Maytinh.ketqua=Maytinh.num_1*Maytinh.num_2;
+				printf("ket qua phep nhan la  : %d\r\n",Maytinh.ketqua);
+			}
+			
+			string_max = 0;
+			
+	
+			
+			
+		}
+		else if(key != 32)
+		{
+		  Maytinh.string_num[string_max]=key-48;			
+			printf("so thu %d la %d\r\n", string_max, Maytinh.string_num[string_max]);
+			lcd_send_data(key);			
+			string_max++;			
+		}
+	}
+	
+}
+
 void display_key(void)
 {
 		lcd_put_cur(0,0);
@@ -251,8 +468,8 @@ void display_key(void)
 
 	 
 }
-///////////////////////////CODE MODE 1
-char Mode_1()
+///////////////////////////CODE MODE 1 thaitn
+char Mode_1(void)
 {
   int k=0;
 	int n=3;
@@ -358,9 +575,9 @@ char Mode_1()
  
 }
 
-///////////////////////////CODE MODE 2
+///////////////////////////CODE MODE 2 thaitn
 
-char Mode_2()
+char Mode_2(void)
 {
 	int k=0;
 	lcd_put_cur(0,0);
@@ -453,7 +670,6 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
-  MX_ADC1_Init();
   MX_I2C2_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
@@ -471,35 +687,28 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	
-
-		key = scan_key();
-		lcd_put_cur(0,0);		
-  	lcd_send_string("CT1:MAYTINH");
-		printf("CT1:MAYTINH\r\n");
-		lcd_put_cur(1,0);
-		lcd_send_string("CT2:4 LED");
+		//READ STATUS IN EEPROM
 		
-		printf("CT2:4LED\r\n");
-	
-		if (key == '1')
-		{	
-		status=1;
-		}
-		if (status==1)
-		{	
-		lcd_init();	
-		Mode_1();
-		}
-		if (key == '2')
+		//
+		scan_mode();
+		 	
+		if (Global_NT.status == Mode_maytinh)
 		{
-		status=2;		
+			printf("Global_NT.status  Mode_maytinh \r\n");
+			// void fn_Mode_maytinh
+			fn_Mode_maytinh();
 		}
-		if (status==2)
-		{	
-		lcd_init();	
-		Mode_2();
+		else if (Global_NT.status == Mode_4led)
+		{
+			printf("Global_NT.status  Mode_4led \r\n");
+			// void fn_Mode_4led
+			
 		}
+		else
+		{
+			//k lam
+		}
+		
 	
 		
   }
