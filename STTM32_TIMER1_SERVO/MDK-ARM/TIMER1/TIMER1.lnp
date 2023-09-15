@@ -1,0 +1,28 @@
+--cpu=Cortex-M4.fp.sp
+"timer1\startup_stm32f407xx.o"
+"timer1\main.o"
+"timer1\gpio.o"
+"timer1\tim.o"
+"timer1\stm32f4xx_it.o"
+"timer1\stm32f4xx_hal_msp.o"
+"timer1\stm32f4xx_hal_tim.o"
+"timer1\stm32f4xx_hal_tim_ex.o"
+"timer1\stm32f4xx_hal_rcc.o"
+"timer1\stm32f4xx_hal_rcc_ex.o"
+"timer1\stm32f4xx_hal_flash.o"
+"timer1\stm32f4xx_hal_flash_ex.o"
+"timer1\stm32f4xx_hal_flash_ramfunc.o"
+"timer1\stm32f4xx_hal_gpio.o"
+"timer1\stm32f4xx_hal_dma_ex.o"
+"timer1\stm32f4xx_hal_dma.o"
+"timer1\stm32f4xx_hal_pwr.o"
+"timer1\stm32f4xx_hal_pwr_ex.o"
+"timer1\stm32f4xx_hal_cortex.o"
+"timer1\stm32f4xx_hal.o"
+"timer1\stm32f4xx_hal_exti.o"
+"timer1\system_stm32f4xx.o"
+"timer1\retarget_io.o"
+--strict --scatter "TIMER1\TIMER1.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "TIMER1.map" -o TIMER1\TIMER1.axf
