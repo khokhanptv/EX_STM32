@@ -1,5 +1,5 @@
 i2c_lcd/retarget_io.o: \
-  C:\Users\ADMIN\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.7.2\Source\retarget_io.c \
+  C:\Users\khokh\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.7.2\Source\retarget_io.c \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \

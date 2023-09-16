@@ -580,7 +580,21 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+int ret = 0;
+	for(int i=1; i<128; i++)
+	{
+			ret = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
+			if (ret != HAL_OK) /* No ACK Received At That Address */
+			{
+					printf("khong co tai dia chi 0x%X \n",i);
+			}
+			else if(ret == HAL_OK)
+			{
+					printf("dia chi 0x%X \n",i);
+					//break;
+			}
+			HAL_Delay(100);
+	}
   /* USER CODE END Init */
 
   /* Configure the system clock */
